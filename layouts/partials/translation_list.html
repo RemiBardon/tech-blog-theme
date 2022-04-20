@@ -3,8 +3,10 @@
 {{- if or .Params.author site.Params.author (.Param "ShowReadingTime") (not .Date.IsZero) }}&nbsp;|&nbsp;{{- end -}}
 {{- end }}
 {{- i18n "translations" | default "Translations" }}:
+{{- $pageLang := .Page.Lang}}
 <ul class="i18n_list">
-    {{- range .Translations }}
+    {{- range .Page.AllTranslations }}
+    {{- if ne $pageLang .Lang }}
     <li>
         <a href="{{ .Permalink }}">
             {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
@@ -14,6 +16,7 @@
             {{- end -}}
         </a>
     </li>
+    {{- end }}
     {{- end }}
 </ul>
 {{- end -}}
