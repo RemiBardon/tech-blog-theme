@@ -1,9 +1,11 @@
 {{- define "main" }}
 
 {{- $pages := $.RegularPages }}
+{{- $pages = where $pages ".Params.hidden" "!=" true }}
 
 {{- if $.IsHome }}
-  {{- $pages = (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+  {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+  {{- $pages = where $pages ".Params.hidden" "!=" true }}
   {{- .Scratch.Set "paginator" (.Paginate $pages) }}
 
   {{- if site.Params.profileMode.enabled }}
