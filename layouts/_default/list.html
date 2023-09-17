@@ -1,17 +1,18 @@
 {{- define "main" }}
 
 {{- $pages := $.RegularPages }}
-{{- $paginator := .Paginate $pages }}
 
 {{- if $.IsHome }}
-  {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+  {{- $pages = (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+  {{- .Scratch.Set "paginator" (.Paginate $pages) }}
 
   {{- if site.Params.profileMode.enabled }}
     {{- partial "index_profile.html" . }}
-  {{- else if and site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+  {{- else if and site.Params.homeInfoParams (eq (.Scratch.Get "paginator").PageNumber 1) }}
     {{- partial "home_info.html" . }}
   {{- end }}
 {{- else }}{{/* if not IsHome */}}
+  {{- .Scratch.Set "paginator" (.Paginate $pages) }}
   {{- if .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}
@@ -36,6 +37,7 @@
 {{- end }}
 
 {{- $term := .Data.Term }}
+{{- $paginator := .Scratch.Get "paginator" }}
 {{- range $index, $page := $paginator.Pages }}
 
   {{- $class := "post-entry" }}
