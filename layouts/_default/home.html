@@ -3,17 +3,14 @@
 {{- $pages := $.RegularPages }}
 {{- $pages = where $pages ".Params.hidden" "!=" true }}
 
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages ".Params.hidden" "!=" true }}
 {{- .Scratch.Set "paginator" (.Paginate $pages) }}
-{{- if .Title }}
-<header class="page-header">
-{{- partial "breadcrumbs.html" . }}
-<h1>{{ .Title }}</h1>
-{{- if .Description }}
-<div class="post-description">
-  {{ .Description | markdownify }}
-</div>
-{{- end }}
-</header>
+
+{{- if site.Params.profileMode.enabled }}
+{{- partial "index_profile.html" . }}
+{{- else if and site.Params.homeInfoParams (eq (.Scratch.Get "paginator").PageNumber 1) }}
+{{- partial "home_info.html" . }}
 {{- end }}
 
 {{- if .Content }}
