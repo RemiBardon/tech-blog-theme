@@ -35,7 +35,7 @@
     {{ else }}{{ errorf "Category '%s' is missing param 'colorHSL'" .Page.Title }}{{ end }}
   >
     <img
-      src="{{ $.Site.BaseURL }}{{ with .Page.Params.icon }}{{ . }}{{ else }}{{ errorf "Category '%s' is missing param 'icon'" .Page.Title }}{{ end }}"
+      src="{{ $.Site.BaseURL }}/{{ with .Page.Params.icon }}{{ . }}{{ else }}{{ errorf "Category '%s' is missing param 'icon'" .Page.Title }}{{ end }}"
       width="48"
       height="48"
       style="display: inline-block;"
