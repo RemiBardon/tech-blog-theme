@@ -9,6 +9,9 @@
     one : "1 min"
     other: "{{ .Count }} min"
 
+- id: datetime
+  translation: "{{ .date }} at {{ .time }}"
+
 - id: last_mod
   translation: "Updated on {{ . }}"
 
