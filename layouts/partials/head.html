@@ -21,7 +21,7 @@
 <meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
     {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
     {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
-<meta name="author" content="{{ (partial "author.html" . ) }}">
+<meta name="author" content="{{ (partial "author_string.html" . ) }}">
 <link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
 {{- if site.Params.analytics.googlesiteVerificationTag }}
 <meta name="google-site-verification" content="{{ site.Params.analytics.googlesiteVerificationTag }}">
@@ -91,8 +91,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
 <link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
 <link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
-<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
-<meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
+<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#1D1E20" }}">
+<meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#1D1E20" }}">
 
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}

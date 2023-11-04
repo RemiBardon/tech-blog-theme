@@ -9,6 +9,9 @@
     one : "1 min"
     other: "{{ .Count }} min"
 
+- id: last_mod
+  translation: "Updated on {{ . }}"
+
 - id: words
   translation:
     one : "word"

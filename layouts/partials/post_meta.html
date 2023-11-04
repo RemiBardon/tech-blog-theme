@@ -1,21 +1,44 @@
 {{- $scratch := newScratch }}
+{{- $dateFormat := (default ":date_long" (.Param "DateFormat")) }}
 
-{{- if not .Date.IsZero -}}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
+{{- /* Publish date */}}
+{{- if not .Date.IsZero }}
+{{- $text := (.Date | time.Format $dateFormat) }}
+{{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
+{{- $value := (.Date | time.Format "2006-01-02T15:04:05Z07:00")}}
+{{- $scratch.Add "meta" (slice (printf "<time itemprop=\"datePublished\" datetime=\"%s\">%s</time>" $value $text)) }}
 {{- end }}
 
-{{- if (.Param "ShowReadingTime") -}}
-{{- $scratch.Add "meta" (slice (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime))) }}
+{{- /* Last modification */}}
+{{- if (.Param "ShowLastMod") }}
+{{- if and (not .Lastmod.IsZero) (gt .Lastmod .Date) }}
+{{- $formattedLastmod := (.Lastmod | time.Format $dateFormat) }}
+{{- $text := (i18n "last_mod" $formattedLastmod | default (printf "Updated on %s" $formattedLastmod)) }}
+{{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
+{{- $value := (.Lastmod | time.Format "2006-01-02T15:04:05Z07:00")}}
+{{- $scratch.Add "meta" (slice (printf "<time itemprop=\"dateModified\" datetime=\"%s\">%s</time>" $value $text)) }}
+{{- end }}
 {{- end }}
 
-{{- if (.Param "ShowWordCount") -}}
-{{- $scratch.Add "meta" (slice (i18n "words" .WordCount | default (printf "%d words" .WordCount))) }}
+{{- /* Reading time */}}
+{{- if (.Param "ShowReadingTime") }}
+{{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
+{{- $value := (printf "PT%dM" .ReadingTime)}}
+{{- $scratch.Add "meta" (slice (printf "<time itemprop=\"timeRequired\" datetime=\"%s\">%s</time>" $value $text)) }}
 {{- end }}
 
-{{- with (partial "author.html" .) }}
+{{- /* Word count */}}
+{{- if (.Param "ShowWordCount") }}
+{{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
+{{- $value := .WordCount }}
+{{- $scratch.Add "meta" (slice (printf "<span itemprop=\"wordCount\" content=\"%d\">%s</span>" $value $text)) }}
+{{- end }}
+
+{{- /* Author */}}
+{{- with (partial "page_author.html" .) }}
 {{- $scratch.Add "meta" (slice .) }}
 {{- end }}
 
 {{- with ($scratch.Get "meta") }}
-{{- delimit . "&nbsp;·&nbsp;" -}}
+  {{- delimit . "&nbsp;·&nbsp;" }}
 {{- end -}}

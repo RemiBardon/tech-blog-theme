@@ -115,7 +115,7 @@ img {
     max-width: 100%;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     background: 0 0;
 }
 
@@ -135,4 +135,4 @@ img {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary);
-}
+} */
