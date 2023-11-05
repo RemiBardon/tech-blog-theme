@@ -1,11 +1,12 @@
 .not-found {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    font-size: 160px;
+    width: min(12em, 100%);
+    margin: 0 auto;
+    text-align: center;
+    font-size: max(1.1em, min(20vw, 3em));
+    font-weight: 500;
+}
+
+.not-found .title {
+    font-size: max(1.2em, min(30vw, 4em));
     font-weight: 700;
 }
