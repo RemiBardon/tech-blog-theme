@@ -40,7 +40,7 @@
       height="48"
       style="display: inline-block;"
     />
-    {{ .Page.Title }}
+    {{ .Page.Title | markdownify }}
     <a href="{{ .Page.Permalink }}" class="entry-link"></a>
   </li>
 {{ end }}
