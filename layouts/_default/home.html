@@ -7,18 +7,14 @@
 {{- $pages = where $pages ".Params.hidden" "!=" true }}
 {{- .Scratch.Set "paginator" (.Paginate $pages) }}
 
-{{- if site.Params.profileMode.enabled }}
 {{- partial "index_profile.html" . }}
-{{- else if and site.Params.homeInfoParams (eq (.Scratch.Get "paginator").PageNumber 1) }}
-{{- partial "home_info.html" . }}
-{{- end }}
 
 {{- if .Content }}
 <div class="post-content">
   {{- if not (.Param "disableAnchoredHeadings") }}
-   {{- partial "anchored_headings.html" .Content -}}
+    {{ partial "anchored_headings.html" .Content }}
   {{- else }}
-    {{- .Content -}}
+    {{ .Content }}
   {{- end }}
 </div>
 {{- end }}
