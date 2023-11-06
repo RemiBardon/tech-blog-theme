@@ -34,3 +34,7 @@
     font-size: 0.8em;
     color: var(--secondary);
 }
+
+.category-card:hover .title {
+    text-decoration: underline;
+}

@@ -46,6 +46,10 @@
     transform: scale(0.96);
 }
 
+.post-entry:hover header {
+    text-decoration: underline;
+}
+
 .tag-entry .entry-cover {
     display: none;
 }
