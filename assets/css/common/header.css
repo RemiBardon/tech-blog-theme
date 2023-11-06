@@ -1,32 +1,36 @@
+.header {
+    width: 100%;
+    line-height: normal;
+}
+
 .nav {
+    width: var(--nav-width);
+    margin: 0 auto;
+    padding: calc(var(--gap) / 2) var(--gap);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: calc(var(--nav-width) + var(--gap) * 2);
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    line-height: var(--header-height);
-}
-
-.nav a {
-    display: block;
+    gap: var(--gap);
 }
 
 .logo,
 #menu {
     display: flex;
-    margin: auto var(--gap);
+    flex-wrap: inherit;
+    margin: auto 0;
 }
 
 .logo {
-    flex-wrap: inherit;
+    gap: calc(var(--gap) / 2);
+    align-items: baseline;
 }
 
 .logo a {
-    font-size: 24px;
+    font-size: 1.5em;
     font-weight: 700;
 }
 
+/* TODO: Cleanup */
 .logo a img {
     display: inline;
     vertical-align: middle;
@@ -36,17 +40,7 @@
     margin-inline-end: 8px;
 }
 
-#theme-toggle svg {
-    height: 18px;
-}
-
-button#theme-toggle {
-    font-size: 26px;
-    margin: auto 4px;
-}
-
 body.dark #moon {
-    vertical-align: middle;
     display: none;
 }
 
@@ -59,24 +53,18 @@ body:not(.dark) #sun {
     word-break: keep-all;
     overflow-x: auto;
     white-space: nowrap;
-}
-
-#menu li + li {
-    margin-inline-start: var(--gap);
-}
-
-#menu a {
-    font-size: 16px;
+    column-gap: var(--gap);
+    row-gap: calc(var(--gap) / 2);
 }
 
 #menu .active {
-    font-weight: 500;
-    border-bottom: 2px solid currentColor;
+    text-decoration: underline;
 }
 
+/* Lang switch not cleaned up because I didn't test it */
+
 .lang-switch li,
-.lang-switch ul,
-.logo-switches {
+.lang-switch ul {
     display: inline-flex;
     margin: auto 4px;
 }
@@ -90,8 +78,4 @@ body:not(.dark) #sun {
     margin: auto 3px;
     font-size: 16px;
     font-weight: 500;
-}
-
-.logo-switches {
-    flex-wrap: inherit;
 }

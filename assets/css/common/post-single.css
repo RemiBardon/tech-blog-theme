@@ -1,6 +1,6 @@
-.page-header,
-.post-header {
-    margin: 24px auto var(--content-gap) auto;
+.post-single,
+.post-content {
+    line-height: 1.6;
 }
 
 .post-title {
@@ -269,11 +269,11 @@
 }
 
 .toc {
-    margin: 0 2px 40px 2px;
+    margin: var(--gap) 0;
     border: 1px solid var(--border);
     background: var(--code-bg);
     border-radius: var(--radius);
-    padding: 0.4em;
+    padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
 }
 
 .dark .toc {
@@ -282,7 +282,6 @@
 
 .toc details summary {
     cursor: zoom-in;
-    margin-inline-start: 20px;
 }
 
 .toc details[open] summary {

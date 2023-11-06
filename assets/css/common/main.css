@@ -1,8 +1,17 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .main {
     position: relative;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    max-width: calc(var(--main-width) + var(--gap) * 2);
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    flex-grow: 1;
+    width: var(--main-width);
+    margin: 0 auto;
     padding: var(--gap);
 }
 
@@ -28,16 +37,15 @@
 }
 
 .social-icons {
-    padding: 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--gap) / 2);
+    justify-content: center;
 }
 
-.social-icons a:not(:last-of-type) {
-    margin-inline-end: 12px;
-}
-
-.social-icons a svg {
-    height: 26px;
-    width: 26px;
+.social-icons {
+    font-size: 1.5em;
+    line-height: 1;
 }
 
 code {

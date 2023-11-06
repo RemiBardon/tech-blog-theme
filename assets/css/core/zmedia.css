@@ -7,6 +7,7 @@
     /* profile-mode */
     .profile img {
         transform: scale(0.85);
+        margin: calc(-15% / 2) auto;
     }
 
     /* post-entry */
@@ -21,11 +22,6 @@
 
     .archive-year {
         margin-top: 20px;
-    }
-
-    /* footer */
-    .footer {
-        padding: calc((var(--footer-height) - var(--gap) - 10px) / 2) var(--gap);
     }
 }
 

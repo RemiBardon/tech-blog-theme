@@ -1,7 +1,9 @@
-.terms-tags li {
-    display: inline-block;
-    margin: 10px;
+.terms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--content-gap);
     font-weight: 500;
+    list-style: none;
 }
 
 .terms-tags a {
