@@ -11,7 +11,7 @@
 }
 
 .category-grid li {
-    list-style-type: none;
+    list-style: none;
 }
 
 .category-card {
@@ -19,8 +19,18 @@
     border-radius: var(--radius);
     padding: var(--gap);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    font-size: 1.5em;
-    font-weight: 500;
-    gap: 1rem;
+    column-gap: 1rem;
+}
+
+.category-card .title {
+    /* Use 1.5em on wide screens. Limit to 7vw on small screens. Don't go under 1em. */
+    font-size: max(1em, min(7vw, 1.5em));
+    font-weight: 600;
+}
+
+.category-card .subtitle {
+    font-size: 0.8em;
+    color: var(--secondary);
 }

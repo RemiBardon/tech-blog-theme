@@ -38,5 +38,10 @@
 - id: code_copied
   translation: "copié!"
 
+- id: post_count
+  translation:
+    one : "1 article"
+    other: "{{ . }} articles"
+
 - id: not_found
   translation: Cette page n’existe pas ou vous n’y avez pas accès.

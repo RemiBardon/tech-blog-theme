@@ -38,5 +38,10 @@
 - id: code_copied
   translation: "copied!"
 
+- id: post_count
+  translation:
+    one : "1 post"
+    other: "{{ . }} posts"
+
 - id: not_found
   translation: This page doesn’t exist or you are not allowed to see it.

@@ -2,7 +2,12 @@
   {{ range (sort .Site.Taxonomies.categories ".Page.Weight") }}
   <li class="category-card" {{ (partialCached "category-card-style.html" .Page .Page) | safeHTMLAttr }}>
     <img src="{{ partialCached "category-icon-link.html" .Page .Page }}" width="48" height="48" />
-    <span>{{ .Page.Title | markdownify }}</span>
+    <div>
+      <span class="title">{{ .Page.Title | markdownify }}</span>
+      {{- $postCount := (i18n "post_count" .Count) | default (printf "%d post(s)" .Count) }}
+      {{- $lastPostDate := time.Format ":date_medium" ((index .Pages.ByDate.Reverse 0).Date) }}
+      <div class="subtitle">{{ printf "%s · %s" $postCount $lastPostDate }}</div>
+    </div>
     <a href="{{ .Page.Permalink }}" class="entry-link"></a>
   </li>
   {{ end }}
