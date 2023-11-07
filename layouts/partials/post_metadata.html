@@ -1,0 +1,59 @@
+{{- $scratch := newScratch }}
+{{- $dateFormat := (default ":date_long" (.Param "DateFormat")) }}
+{{- $timeFormat := (default ":time_short" (.Param "TimeFormat")) }}
+{{- $dateIsStartOfDay := eq (.Date | time.Format "15:04") "00:00" }}
+
+{{- /* Publish date */}}
+{{- if not .Date.IsZero }}
+  {{- $date := (.Date | time.Format $dateFormat) }}
+  {{- $text := $date }}
+  {{- /* Add time component if not 00:00 */}}
+  {{- if not $dateIsStartOfDay }}
+    {{- $time := (.Date | time.Format $timeFormat) }}
+    {{- $text = (i18n "datetime" (dict "date" $date "time" $time) | default (printf "%s at %s" $date $time)) }}
+  {{- end }}
+  {{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
+  {{- $value := (.Date | time.Format "2006-01-02T15:04:05Z07:00")}}
+  {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"datePublished\" datetime=\"%s\">%s</time>" $value $text)) }}
+{{- end }}
+
+{{- /* Last modification */}}
+{{- if (.Param "ShowLastMod") }}
+  {{- $lastmodIsStartOfDay := eq (.Lastmod | time.Format "15:04") "00:00" }}
+  {{- if (or (and $dateIsStartOfDay (gt .Lastmod (.Date.AddDate 0 0 1))) (and (not $dateIsStartOfDay) (gt .Lastmod .Date))) }}
+    {{- $date := (.Lastmod | time.Format $dateFormat) }}
+    {{- $datetime := $date }}
+    {{- /* Add time component if not 00:00 */}}
+    {{- if not $lastmodIsStartOfDay }}
+      {{- $time := (.Lastmod | time.Format $timeFormat) }}
+      {{- $datetime = (i18n "datetime" (dict "date" $date "time" $time) | default (printf "%s at %s" $date $time)) }}
+    {{- end }}
+    {{- $text := (i18n "last_mod" $datetime | default (printf "Updated on %s" $datetime)) }}
+    {{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
+    {{- $value := (.Lastmod | time.Format "2006-01-02T15:04:05Z07:00") }}
+    {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"dateModified\" datetime=\"%s\">%s</time>" $value $text)) }}
+  {{- end }}
+{{- end }}
+
+{{- /* Reading time */}}
+{{- if (.Param "ShowReadingTime") }}
+  {{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
+  {{- $value := (printf "PT%dM" .ReadingTime)}}
+  {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"timeRequired\" datetime=\"%s\">%s</time>" $value $text)) }}
+{{- end }}
+
+{{- /* Word count */}}
+{{- if (.Param "ShowWordCount") }}
+  {{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
+  {{- $value := .WordCount }}
+  {{- $scratch.Add "meta" (slice (printf "<span itemprop=\"wordCount\" content=\"%d\">%s</span>" $value $text)) }}
+{{- end }}
+
+{{- /* Author */}}
+{{- with (partial "page_author.html" .) }}
+  {{- $scratch.Add "meta" (slice .) }}
+{{- end }}
+
+{{- with ($scratch.Get "meta") }}
+  {{- delimit . "&nbsp;·&nbsp;" }}
+{{- end -}}

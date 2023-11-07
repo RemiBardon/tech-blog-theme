@@ -3,37 +3,18 @@
 <article class="post-single" itemscope itemtype="https://schema.org/Article">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title">
-      <span itemprop="headline">{{ .Title | markdownify }}</span>
-      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
-    </h1>
-    {{- if .Description }}
-    <div class="post-description">
-      {{ .Description | markdownify }}
-    </div>
-    {{- end }}
-    {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
-      {{- partial "translation_list.html" . -}}
-      {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
-    </div>
-    {{- end }}
+    {{ partial "post_title.html" (dict "ctx" . "itemprop" "headline") }}
+    {{ partial "post_description.html" . }}
+    {{ partial "post_meta.html" . }}
   </header>
+
   {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-    {{- partial "toc.html" . }}
-  {{- end }}
 
+  {{ partial "toc.html" . }}
   {{ partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
-
   {{ partial "post_footer.html" . }}
-
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
+  {{ partial "comments.html" . }}
 </article>
 
 {{- end }}{{/* end main */}}
