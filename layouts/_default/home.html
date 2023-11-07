@@ -1,15 +1,7 @@
 {{- define "main" }}
 {{ partialCached "index_profile.html" . }}
 
-{{- if .Content }}
-<div class="post-content">
-  {{- if not (.Param "disableAnchoredHeadings") }}
-    {{ partial "anchored_headings.html" .Content }}
-  {{- else }}
-    {{ .Content }}
-  {{- end }}
-</div>
-{{- end }}
+{{ partial "post_content.html" (dict "ctx" .) }}
 
 {{ partialCached "category_grid.html" . }}
 {{- end }}{{/* end main */ -}}

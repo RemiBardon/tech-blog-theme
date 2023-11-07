@@ -27,15 +27,7 @@
     {{- partial "toc.html" . }}
   {{- end }}
 
-  {{- if .Content }}
-  <div class="post-content" itemprop="articleBody">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{ partial "anchored_headings.html" .Content }}
-    {{- else }}
-    {{ .Content }}
-    {{- end }}
-  </div>
-  {{- end }}
+  {{ partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
 
   <footer class="post-footer">
     {{- if .Params.tags }}
