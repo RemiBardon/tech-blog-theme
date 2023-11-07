@@ -29,21 +29,7 @@
 
   {{ partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
 
-  <footer class="post-footer">
-    {{- if .Params.tags }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms "tags") }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-      {{- end }}
-    </ul>
-    {{- end }}
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    {{- partial "share_icons.html" . -}}
-    {{- end }}
-  </footer>
+  {{ partial "post_footer.html" . }}
 
   {{- if (.Param "comments") }}
   {{- partial "comments.html" . }}
