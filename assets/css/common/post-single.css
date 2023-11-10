@@ -248,7 +248,7 @@
     border-radius: 4px;
     max-height: 50vh;
     object-fit: cover;
-    margin: 0 auto 0.5rem;
+    margin: 0 auto;
 }
 
 .post-content figure.align-center {
@@ -257,15 +257,17 @@
 
 .post-content figure > figcaption {
     color: var(--primary);
-    font-size: 16px;
-    font-weight: bold;
-    margin: 8px 0 16px;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
 }
 
-.post-content figure > figcaption > p {
+.post-content figure > figcaption .title {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.post-content figure > figcaption .meta {
     color: var(--secondary);
-    font-size: 14px;
-    font-weight: normal;
 }
 
 .toc {
