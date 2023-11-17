@@ -270,9 +270,12 @@
 
 .post-content figure .img-container {
     position: relative;
-    max-height: 50vh;
     width: fit-content;
     margin: 0 auto;
+}
+
+.post-content figure img {
+    max-height: 50vh;
 }
 
 .post-content figure .img-container .actions-container {
