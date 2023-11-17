@@ -45,3 +45,9 @@
 
 - id: not_found
   translation: Cette page n’existe pas ou vous n’y avez pas accès.
+
+- id: download
+  translation: Télécharger
+
+- id: fullscreen
+  translation: Plein écran

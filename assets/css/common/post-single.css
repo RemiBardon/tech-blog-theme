@@ -246,9 +246,7 @@
 .post-content img,
 .post-content video {
     border-radius: 4px;
-    max-height: 50vh;
     object-fit: cover;
-    margin: 0 auto;
 }
 
 .post-content figure.align-center {
@@ -268,6 +266,38 @@
 
 .post-content figure > figcaption .meta {
     color: var(--secondary);
+}
+
+.post-content figure .img-container {
+    position: relative;
+    max-height: 50vh;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.post-content figure .img-container .actions-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 1rem;
+    margin: .5rem;
+    display: flex;
+    gap: .25rem;
+    text-decoration: none;
+}
+
+.post-content figure .img-container .actions-container > * {
+    backdrop-filter: invert(50%) blur(10px);
+    border-radius: 25%;
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.post-content figure .img-container .actions-container svg {
+    filter: invert(100%);
+    margin: auto;
 }
 
 .toc {
