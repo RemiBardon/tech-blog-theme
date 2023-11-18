@@ -2,8 +2,9 @@
 
 {{- if .Title }}
 <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{ partial "post_description.html" . }}
+  {{ partial "breadcrumb.html" . }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ partial "post_description.html" . }}
 </header>
 {{- end }}
 
