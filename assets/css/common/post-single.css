@@ -14,11 +14,8 @@
 }
 
 .post-meta,
-.breadcrumbs {
+.breadcrumb {
     color: var(--secondary);
-    font-size: 14px;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .post-meta .i18n_list li {
@@ -28,8 +25,18 @@
     box-shadow: 0 1px 0 var(--secondary);
 }
 
-.breadcrumbs a {
-    font-size: 16px;
+.breadcrumb ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li:not(:first-of-type)::before {
+    content: " » ";
 }
 
 .post-content {

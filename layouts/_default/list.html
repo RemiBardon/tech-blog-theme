@@ -6,7 +6,7 @@
 {{- .Scratch.Set "paginator" (.Paginate $pages) }}
 {{- if .Title }}
 <header class="page-header">
-  {{- partial "breadcrumbs.html" . }}
+  {{- partial "breadcrumb.html" . }}
   <h1>{{ .Title | markdownify }}</h1>
   {{ partial "post_description.html" . }}
 </header>

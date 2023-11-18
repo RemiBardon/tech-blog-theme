@@ -1,0 +1,31 @@
+{{- if (.Param "ShowBreadCrumb") }}
+{{- $ancestors := slice }}
+<nav aria-label="Breadcrumb" class="breadcrumb">
+
+{{- $taxonomy := "series" }}
+{{- with .GetTerms $taxonomy }}
+  {{- /* If the page is in a series, link to it */}}
+  {{- $ancestors = $ancestors | append (site.GetPage "/") }}
+  {{- $ancestors = $ancestors | append (site.GetPage $taxonomy) }}
+  {{- $ancestors = $ancestors | append . }}
+{{- else }}
+  {{- $taxonomy = "categories" }}
+  {{- with .GetTerms $taxonomy }}
+    {{- /* If the page is not in a series, link to its category */}}
+    {{- $ancestors = $ancestors | append (site.GetPage "/") }}
+    {{- $ancestors = $ancestors | append (site.GetPage $taxonomy) }}
+    {{- $ancestors = $ancestors | append . }}
+  {{- else }}
+    {{- /* Otherwise, show regular breadcrimbs */}}
+    {{- $ancestors = $ancestors | append .Ancestors.Reverse }}
+  {{- end }}
+{{- end }}
+
+<ol>
+  {{ range $k, $_ := $ancestors -}}
+    <li><a href="{{ .Permalink }}">{{ .LinkTitle | markdownify }}</a></li>
+  {{- end }}
+</ol>
+
+</nav>
+{{- end }}
