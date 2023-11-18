@@ -33,7 +33,7 @@
     -webkit-line-clamp: unset;
 }
 
-.post-entry {
+.page-list-entry {
     position: relative;
     padding: var(--gap);
     background: var(--entry);
@@ -42,11 +42,11 @@
     border: 1px solid var(--border);
 }
 
-.post-entry:active {
+.page-list-entry:active {
     transform: scale(0.96);
 }
 
-.post-entry:hover header {
+.page-list-entry:hover header {
     text-decoration: underline;
 }
 

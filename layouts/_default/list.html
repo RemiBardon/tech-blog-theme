@@ -2,11 +2,11 @@
 
 {{- $pages := $.RegularPages }}
 {{- $pages = where $pages ".Params.hidden" "!=" true }}
-
 {{- .Scratch.Set "paginator" (.Paginate $pages) }}
+
 {{- if .Title }}
 <header class="page-header">
-  {{- partial "breadcrumb.html" . }}
+  {{ partial "breadcrumb.html" . }}
   <h1>{{ .Title | markdownify }}</h1>
   {{ partial "post_description.html" . }}
 </header>
@@ -14,19 +14,19 @@
 
 {{ partial "post_content.html" (dict "ctx" .) }}
 
-<ol class="post-list">
+<ol class="page-list">
 
 {{- $term := .Data.Term }}
 {{- $paginator := .Scratch.Get "paginator" }}
 {{- range $index, $page := $paginator.Pages }}
 
-  {{- $class := "post-entry" }}
+  {{- $class := "page-list-entry" }}
 
   {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
   {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
     {{- $class = "first-entry" }}
   {{- else if $term }}
-    {{- $class = "post-entry tag-entry" }}
+    {{- $class = "page-list-entry tag-entry" }}
   {{- end }}
 
 <li>

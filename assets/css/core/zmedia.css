@@ -10,7 +10,7 @@
         margin: calc(-15% / 2) auto;
     }
 
-    /* post-entry */
+    /* page-list-entry */
     .first-entry {
         min-height: 260px;
     }
@@ -41,11 +41,11 @@
 } */
 
 @media (prefers-reduced-motion) {
-    /* terms; profile-mode; post-single; post-entry; post-entry; search; search */
+    /* terms; profile-mode; post-single; page-list-entry; page-list-entry; search; search */
     .terms-tags a:active,
     .button:active,
     .share-buttons svg:active,
-    .post-entry:active,
+    .page-list-entry:active,
     .top-link,
     #searchResults .focus,
     #searchResults li:active {
