@@ -1,8 +1,7 @@
 {{- define "main" }}
 
-{{- $pages := $.RegularPages }}
-{{- $pages = where $pages ".Params.hidden" "!=" true }}
-{{- .Scratch.Set "paginator" (.Paginate $pages) }}
+{{- $pages := where $.RegularPages ".Params.hidden" "!=" true }}
+{{- $paginator := .Paginate $pages }}
 
 {{- if .Title }}
 <header class="page-header">
@@ -15,9 +14,7 @@
 {{ partial "post_content.html" (dict "ctx" .) }}
 
 <ol class="page-list">
-  {{- $term := .Data.Term }}
-  {{- $paginator := .Scratch.Get "paginator" }}
-  {{- range $index, $page := $paginator.Pages }}
+  {{- range $page := $paginator.Pages }}
   <li>
     <article class="page-list-entry">
       {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
@@ -48,13 +45,13 @@
 <footer class="page-footer">
   <nav class="pagination">
     {{- if $paginator.HasPrev }}
-    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">« {{ i18n "prev_page" }}</a>
+    <a class="prev" href="{{ $paginator.Prev.RelPermalink }}">« {{ i18n "prev_page" }}</a>
     {{- end }}
     {{- if $paginator.HasNext }}
-    <a class="next" href="{{ $paginator.Next.URL | absURL }}">{{ i18n "next_page" }} »</a>
+    <a class="next" href="{{ $paginator.Next.RelPermalink }}">{{ i18n "next_page" }} »</a>
     {{- end }}
   </nav>
 </footer>
 {{- end }}
 
-{{- end }}{{- /* end main */ -}}
+{{- end }}{{/* end main */ -}}
