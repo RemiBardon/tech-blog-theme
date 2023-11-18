@@ -1,6 +1,6 @@
 :root {
     --gap: 1.5rem;
-    --content-gap: 1.25rem;
+    --content-gap: 1rem;
     --nav-width-inner: min(1024px, calc(100vw - var(--gap) * 2));
     --nav-width: calc(var(--nav-width-inner) + var(--gap) * 2);
     --main-width-inner: min(768px, calc(100vw - var(--gap) * 2));

@@ -1,16 +1,21 @@
+.post-single {
+    display: grid;
+    gap: calc(var(--gap) * 1.5);
+}
+
 .post-single,
 .post-content {
     line-height: 1.6;
 }
 
-.post-title {
-    margin-bottom: 2px;
-    font-size: 40px;
+.post-header {
+    line-height: initial;
+    display: grid;
+    gap: 0.25rem;
 }
 
-.post-description {
-    margin-top: 10px;
-    margin-bottom: 5px;
+.post-title {
+    font-size: 2em;
 }
 
 .post-meta,
@@ -56,19 +61,20 @@
     margin: 1em auto calc(1em / 2);
 }
 
-.post-content h1 {
-    font-size: 2.25em;
-    font-weight: 900;
+.post-content h1,
+.post-single h1 {
+    font-size: 2.1em;
+    font-weight: 800;
 }
 
 .post-content h2 {
-    font-size: 2em;
-    font-weight: 900;
+    font-size: 1.9em;
+    font-weight: 800;
 }
 
 .post-content h3 {
-    font-size: 1.75em;
-    font-weight: 700;
+    font-size: 1.7em;
+    font-weight: 650;
 }
 
 .post-content h4 {
@@ -325,7 +331,6 @@
 }
 
 .toc {
-    margin: var(--gap) 0;
     border: 1px solid var(--border);
     background: var(--code-bg);
     border-radius: var(--radius);
@@ -361,10 +366,6 @@
 
 .toc summary:focus {
     outline: 0;
-}
-
-.post-footer {
-    margin-top: 56px;
 }
 
 .post-tags li {
@@ -473,7 +474,6 @@ a.heading-link svg {
 }
 
 .paginav {
-    margin: 10px 0;
     display: flex;
     line-height: 30px;
     border-radius: var(--radius);
