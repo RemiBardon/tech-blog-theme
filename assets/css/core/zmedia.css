@@ -10,11 +10,6 @@
         margin: calc(-15% / 2) auto;
     }
 
-    /* page-list-entry */
-    .first-entry {
-        min-height: 260px;
-    }
-
     /* archive */
     .archive-month {
         flex-direction: column;

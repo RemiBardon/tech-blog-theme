@@ -15,45 +15,33 @@
 {{ partial "post_content.html" (dict "ctx" .) }}
 
 <ol class="page-list">
-
-{{- $term := .Data.Term }}
-{{- $paginator := .Scratch.Get "paginator" }}
-{{- range $index, $page := $paginator.Pages }}
-
-  {{- $class := "page-list-entry" }}
-
-  {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
-  {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
-    {{- $class = "first-entry" }}
-  {{- else if $term }}
-    {{- $class = "page-list-entry tag-entry" }}
+  {{- $term := .Data.Term }}
+  {{- $paginator := .Scratch.Get "paginator" }}
+  {{- range $index, $page := $paginator.Pages }}
+  <li>
+    <article class="page-list-entry">
+      {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+      {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+      <header class="entry-header">
+        <h2>
+          {{- .Title | markdownify }}
+          {{- if .Draft }}<sup class="entry-isdraft">&nbsp;&nbsp;[draft]</sup>{{- end }}
+        </h2>
+      </header>
+      {{- if (ne (.Param "hideSummary") true) }}
+      <div class="entry-content">
+        <p>{{ .Summary | markdownify }}{{ if .Truncated }}&hellip;{{ end }}</p>
+      </div>
+      {{- end }}
+      {{- if not (.Param "hideMeta") }}
+      <footer class="entry-footer">
+        {{- partial "post_metadata.html" . -}}
+      </footer>
+      {{- end }}
+      <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+    </article>
+  </li>
   {{- end }}
-
-<li>
-  <article class="{{ $class }}">
-    {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
-    {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
-    <header class="entry-header">
-      <h2>
-        {{- .Title | markdownify }}
-        {{- if .Draft }}<sup class="entry-isdraft">&nbsp;&nbsp;[draft]</sup>{{- end }}
-      </h2>
-    </header>
-    {{- if (ne (.Param "hideSummary") true) }}
-    <div class="entry-content">
-      <p>{{ .Summary | markdownify }}{{ if .Truncated }}&hellip;{{ end }}</p>
-    </div>
-    {{- end }}
-    {{- if not (.Param "hideMeta") }}
-    <footer class="entry-footer">
-      {{- partial "post_metadata.html" . -}}
-    </footer>
-    {{- end }}
-    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
-  </article>
-</li>
-{{- end }}
-
 </ol>
 
 {{- if gt $paginator.TotalPages 1 }}
