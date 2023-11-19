@@ -51,3 +51,8 @@
 
 - id: fullscreen
   translation: Plein écran
+
+- id: private_page_warning
+  translation: >
+    Cet article est privé.
+    Il ne sert à rien de partager un lien vers cette page car la plupart des gens n’y ont pas accès.

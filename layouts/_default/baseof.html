@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
 
-<head>
-    {{- partial "head.html" . }}
-</head>
-
-<body class="
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
-{{- print "list" -}}
-{{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}}
-{{- print " dark" }}
-{{- end -}}
-" id="top">
-    {{- partialCached "header.html" . .Page -}}
+  <body class="
+  {{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
+    {{- print "list" }}
+  {{- end }}
+  {{- if eq site.Params.defaultTheme `dark` }}
+  {{- print " dark" }}
+  {{- end -}}
+  " id="top">
+    {{ partialCached "header.html" . .Page -}}
+    {{- if not (in ((.Param "read_access") | default (slice "_default")) "_default") }}
+    <div class="private-page-warning">
+      <span>{{ i18n "private_page_warning" | default "This page is private." }}</span>
+    </div>
+    {{- end }}
     <main class="main">
-        {{- block "main" . }}{{ end }}
+      {{ block "main" . }}{{ end }}
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
-</body>
-
+  </body>
 </html>
