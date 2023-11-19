@@ -54,5 +54,5 @@
 
 - id: private_page_warning
   translation: >
-    This article is private.
-    There is no point in sharing a link to this page as most people don’t have access to it.
+    This page is private.
+    There is no point in sharing a link to it as most people don’t have access to it.
