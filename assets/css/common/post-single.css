@@ -309,6 +309,7 @@
 
 .post-content figure .img-container .actions-container > * {
     backdrop-filter: invert(50%) blur(10px);
+    -webkit-backdrop-filter: invert(50%) blur(10px);
     border-radius: 25%;
     width: 1.5em;
     height: 1.5em;
