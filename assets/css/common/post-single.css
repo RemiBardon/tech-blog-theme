@@ -52,6 +52,11 @@
     margin-top: 0 !important;
 }
 
+/* Fix margin of first headers in links */
+.post-content > *:first-child *:first-child {
+    margin-top: 0 !important;
+}
+
 .post-content > *:not(:last-child) {
     margin-bottom: var(--content-gap);
 }
