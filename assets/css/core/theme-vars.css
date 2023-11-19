@@ -31,10 +31,10 @@
     --warning: hsl(55, 100%, 50%);
 }
 
-.list {
+body.list {
     background: var(--code-bg);
 }
 
-.dark.list {
+body.dark.list {
     background: var(--theme);
 }

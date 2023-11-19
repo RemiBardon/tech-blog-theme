@@ -1,4 +1,4 @@
-{{- if or .Params.author site.Params.author }}
+{{- if .Param "author" }}
   {{- $author := .Param "author" }}
 
   {{- /* Support multiple authors */}}

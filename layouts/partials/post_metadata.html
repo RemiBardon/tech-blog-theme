@@ -16,11 +16,11 @@
   {{- end }}
   {{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
   {{- $value := (.Date | time.Format "2006-01-02T15:04:05Z07:00")}}
-  {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"datePublished\" datetime=\"%s\">%s</time>" $value $text)) }}
+  {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"datePublished\" datetime=\"%s\">%s</time></li>" $value $text)) }}
 {{- end }}
 
 {{- /* Last modification */}}
-{{- if and (.Param "ShowLastMod") (not $.hideLastMod) }}
+{{- if (.Param "ShowLastMod") }}
   {{- $lastmodIsStartOfDay := eq (.Lastmod | time.Format "15:04") "00:00" }}
   {{- if (or (and $dateIsStartOfDay (gt .Lastmod (.Date.AddDate 0 0 1))) (and (not $dateIsStartOfDay) (gt .Lastmod .Date))) }}
     {{- $date := (.Lastmod | time.Format $dateFormat) }}
@@ -33,7 +33,13 @@
     {{- $text := (i18n "last_mod" $datetime | default (printf "Updated on %s" $datetime)) }}
     {{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
     {{- $value := (.Lastmod | time.Format "2006-01-02T15:04:05Z07:00") }}
-    {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"dateModified\" datetime=\"%s\">%s</time>" $value $text)) }}
+
+    {{- $display := "" }}
+    {{- if eq $.hideLastMod true }}
+      {{- $display = " hidden" }}
+    {{- end }}
+
+    {{- $scratch.Add "meta" (slice (printf "<li%s><time itemprop=\"dateModified\" datetime=\"%s\">%s</time></li>" $display $value $text)) }}
   {{- end }}
 {{- end }}
 
@@ -41,23 +47,31 @@
 {{- if (.Param "ShowReadingTime") }}
   {{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
   {{- $value := (printf "PT%dM" .ReadingTime)}}
-  {{- $scratch.Add "meta" (slice (printf "<time itemprop=\"timeRequired\" datetime=\"%s\">%s</time>" $value $text)) }}
+  {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"timeRequired\" datetime=\"%s\">%s</time></li>" $value $text)) }}
 {{- end }}
 
 {{- /* Word count */}}
 {{- if (.Param "ShowWordCount") }}
   {{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
   {{- $value := .WordCount }}
-  {{- $scratch.Add "meta" (slice (printf "<span itemprop=\"wordCount\" content=\"%d\">%s</span>" $value $text)) }}
+  {{- $scratch.Add "meta" (slice (printf "<li><span itemprop=\"wordCount\" content=\"%d\">%s</span></li>" $value $text)) }}
 {{- end }}
 
 {{- /* Author */}}
 {{- with (partial "page_author.html" .) }}
-  {{- $scratch.Add "meta" (slice .) }}
-{{- end }}
+  {{- $display := "" }}
+  {{- if and (eq $.hideAuthorIfNotSpecial true) (ne $.ctx.Params.author site.Params.author) }}
+    {{- $display = " hidden" }}
+  {{- end }}
 
+  {{- $scratch.Add "meta" (slice (printf "<li%s>%s</li>" $display .)) }}
+{{- end }}
 {{- with ($scratch.Get "meta") }}
-  {{- delimit . "&nbsp;·&nbsp;" }}
+<ul class="post-metadata list dot-separated">
+  {{ range . -}}
+    {{ . | safeHTML }}
+  {{- end }}
+</ul>
 {{- end }}
 
 {{- end }}{{/* End context */ -}}

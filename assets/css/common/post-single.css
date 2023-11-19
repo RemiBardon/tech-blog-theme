@@ -30,6 +30,18 @@
     box-shadow: 0 1px 0 var(--secondary);
 }
 
+.list.dot-separated {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.list.dot-separated > li:not([hidden]) {
+    display: inline;
+}
+.list.dot-separated > *:not(:first-child)::before {
+    content: " · ";
+}
+
 .breadcrumb ol {
     list-style: none;
     padding: 0;
