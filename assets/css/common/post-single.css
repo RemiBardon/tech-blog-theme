@@ -505,6 +505,7 @@ a.heading-link svg {
     padding-inline-start: 14px;
     padding-inline-end: 14px;
     border-radius: var(--radius);
+    text-decoration: none;
 }
 
 .paginav .nav-title {
