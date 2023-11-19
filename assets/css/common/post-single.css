@@ -23,6 +23,10 @@
     color: var(--secondary);
 }
 
+.post-meta {
+    font-size: small;
+}
+
 .post-meta .i18n_list li {
     display: inline-flex;
     list-style: none;
