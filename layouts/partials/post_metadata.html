@@ -1,3 +1,5 @@
+{{ with .ctx }}{{/* Apply proper context from dict */ -}}
+
 {{- $scratch := newScratch }}
 {{- $dateFormat := (default ":date_long" (.Param "DateFormat")) }}
 {{- $timeFormat := (default ":time_short" (.Param "TimeFormat")) }}
@@ -18,7 +20,7 @@
 {{- end }}
 
 {{- /* Last modification */}}
-{{- if (.Param "ShowLastMod") }}
+{{- if and (.Param "ShowLastMod") (not $.hideLastMod) }}
   {{- $lastmodIsStartOfDay := eq (.Lastmod | time.Format "15:04") "00:00" }}
   {{- if (or (and $dateIsStartOfDay (gt .Lastmod (.Date.AddDate 0 0 1))) (and (not $dateIsStartOfDay) (gt .Lastmod .Date))) }}
     {{- $date := (.Lastmod | time.Format $dateFormat) }}
@@ -56,4 +58,6 @@
 
 {{- with ($scratch.Get "meta") }}
   {{- delimit . "&nbsp;·&nbsp;" }}
-{{- end -}}
+{{- end }}
+
+{{- end }}{{/* End context */ -}}

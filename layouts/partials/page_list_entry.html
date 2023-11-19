@@ -14,7 +14,7 @@
   {{- end }}
   {{- if not (.Param "hideMeta") }}
   <footer class="entry-footer">
-    {{- partial "post_metadata.html" . -}}
+    {{- partial "post_metadata.html" (dict "ctx" . "hideLastMod" true) -}}
   </footer>
   {{- end }}
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
