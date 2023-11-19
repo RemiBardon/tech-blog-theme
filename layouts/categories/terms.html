@@ -1,0 +1,15 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+  {{ partial "breadcrumb.html" . }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ partial "post_description.html" . }}
+</header>
+{{- end }}
+
+{{ partial "post_content.html" (dict "ctx" .) }}
+
+{{ partial "category_grid.html" . }}
+
+{{- end }}{{/* end main */ -}}
