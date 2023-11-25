@@ -12,6 +12,7 @@
 
 {{- $pages := $.Pages }}
 {{- $pages = where $pages ".Params.hidden" "!=" true }}
+{{- $pages := (partial "profile_filter.html" $pages) }}
 {{- $paginator := .Paginate $pages }}
 <ol class="page-list">
   {{- range $paginator.Pages }}

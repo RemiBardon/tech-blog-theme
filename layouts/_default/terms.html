@@ -9,8 +9,8 @@
 {{- end }}
 
 <ul class="terms-tags">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
+  {{- $type := .Type }}
+  {{- range $key, $value := (partial "profile_filter.html" .Data.Terms.Alphabetical) }}
     {{- $name := .Name }}
     {{- $count := .Count }}
     {{- with site.GetPage (printf "/%s/%s" $type $name) }}
@@ -18,7 +18,7 @@
         <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><small>{{ $count }}</small></strong></sup></a>
     </li>
     {{- end }}
-    {{- end }}
+  {{- end }}
 </ul>
 
 {{- end }}{{/* end main */ -}}

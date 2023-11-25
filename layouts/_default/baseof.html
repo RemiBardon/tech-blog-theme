@@ -12,6 +12,7 @@
   {{- print " dark" }}
   {{- end -}}
   " id="top">
+    <span>currentProfiles: {{ site.Param "currentProfiles" | default "None" }}</span>
     {{ partialCached "header.html" . .Page -}}
     {{- if not (in ((.Param "read_allowed") | default (slice "_default")) "_default") }}
     <div class="private-page-warning">

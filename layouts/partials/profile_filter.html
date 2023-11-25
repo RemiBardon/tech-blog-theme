@@ -1,0 +1,64 @@
+{{ $returnValue := . }}
+
+{{ with $currentProfiles := site.Param "currentProfiles" }}
+  {{ $currentProfiles = $currentProfiles | append "_default" }}
+
+  {{ if in (slice "page.Taxonomy") (printf "%T" $) }}
+    {{ $filteredMap := dict }}
+
+    {{ range $key, $value := $ }}
+      {{/* Read params inside .Page */}}
+      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
+      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+        {{/* Filter value */}}
+        {{ $value := (partial "profile_filter.html" $value) }}
+        {{ $filteredMap = $filteredMap | merge (dict $key $value) }}
+      {{ end }}
+    {{ end }}
+
+    {{ $returnValue = $filteredMap }}
+  {{ else if in (slice "page.WeightedPages" "page.OrderedTaxonomy") (printf "%T" $) }}
+    {{ $filteredSlice := slice }}
+
+    {{ range $value := $ }}
+      {{/* Read params inside .Page */}}
+      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
+      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+        {{ $filteredSlice = $filteredSlice | append $value }}
+      {{ end }}
+    {{ end }}
+
+    {{ $returnValue = $filteredSlice }}
+  {{ else if in (slice "page.Pages") (printf "%T" $) }}
+    {{ $filteredSlice := slice }}
+
+    {{ range $value := $ }}
+      {{ $readAllowed := (.Params.read_allowed | default (slice "_default")) }}
+      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+        {{ $filteredSlice = $filteredSlice | append $value }}
+      {{ end }}
+    {{ end }}
+
+    {{ $returnValue = $filteredSlice }}
+  {{ else if in (slice "page.OrderedTaxonomy") (printf "%T" $) }}
+    {{ $filteredSlice := slice }}
+
+    {{ range $value := $ }}
+      {{/* Filter value */}}
+      {{ $value := (partial "profile_filter.html" $value) }}
+      {{ $filteredSlice = $filteredSlice | append $value }}
+    {{ end }}
+
+    {{ $returnValue = $filteredSlice }}
+  {{ else }}
+    {{ errorf "[profile_filter] Unsupported type: %T" $ }}
+  {{ end }}
+
+{{ end }}
+
+{{ return $returnValue }}
+
+{{ define "partials/_access_allowed.html" }}
+{{ $res := (in .currentProfiles "*") | or (gt (len (intersect .currentProfiles .readAllowed)) 0) }}
+{{ return $res }}
+{{ end }}

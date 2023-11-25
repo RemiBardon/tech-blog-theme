@@ -1,5 +1,5 @@
 <ul class="category-grid">
-  {{ range (sort .Site.Taxonomies.categories ".Page.Weight") }}
+  {{ range (sort (partial "profile_filter.html" .Site.Taxonomies.categories) ".Page.Weight") }}
   <li class="category-card" {{ (partialCached "category-card-style.html" .Page .Page) | safeHTMLAttr }}>
     <img src="{{ partialCached "category-icon-link.html" .Page .Page }}" width="48" height="48" />
     <div>
