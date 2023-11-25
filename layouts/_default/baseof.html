@@ -13,7 +13,7 @@
   {{- end -}}
   " id="top">
     {{ partialCached "header.html" . .Page -}}
-    {{- if not (in ((.Param "read_access") | default (slice "_default")) "_default") }}
+    {{- if not (in ((.Param "read_allowed") | default (slice "_default")) "_default") }}
     <div class="private-page-warning">
       <span>{{ i18n "private_page_warning" | default "This page is private." }}</span>
     </div>
