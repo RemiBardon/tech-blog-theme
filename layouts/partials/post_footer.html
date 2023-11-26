@@ -4,7 +4,7 @@
     {{- range . }}
     <li>
       <a href="{{ .Permalink }}" class="term">
-        <span class="link-title">{{ .LinkTitle }}</span>
+        <span class="link-title">{{ .LinkTitle | markdownify }}</span>
       </a>
     </li>
     {{- end }}
