@@ -8,7 +8,7 @@
   {{- end }}
 
   {{- if (.Param "ShowPostNavLinks") }}
-    {{ partial "post_nav_links.html" . }}
+    {{ partial "post_paginav.html" . }}
   {{- end }}
 
   {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}

@@ -97,3 +97,24 @@ pre:hover .copy-code {
     margin: 0 auto;
     padding: calc(var(--gap) / 2) var(--gap);
 }
+
+/* ===== Breadcrumb ===== */
+
+.breadcrumb a {
+    text-decoration: none !important;
+}
+
+.breadcrumb ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li:not(:first-of-type)::before {
+    content: " » ";
+    color: var(--secondary);
+}

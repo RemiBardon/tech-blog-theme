@@ -117,6 +117,14 @@ img {
     max-width: 100%;
 }
 
+details summary { 
+    cursor: pointer;
+}
+
+details summary > * {
+    display: inline;
+}
+
 /* ::-webkit-scrollbar-track {
     background: 0 0;
 }
