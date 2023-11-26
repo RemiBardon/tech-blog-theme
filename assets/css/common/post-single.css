@@ -377,35 +377,21 @@
     gap: calc(var(--gap) / 2);
 }
 
-.post-tags,
+/* .post-single .tags .page-count {
+    display: none;
+} */
+
 .share-buttons {
     display: flex;
     gap: calc(var(--gap) / 4);
     list-style: none;
 }
 
-.post-tags {
-    flex-wrap: wrap;
-}
-
-.post-tags a,
 .share-buttons,
 .paginav {
     border-radius: var(--radius);
     background: var(--code-bg);
     border: 1px solid var(--border);
-}
-
-.post-tags a {
-    display: block;
-    text-decoration: none;
-    padding: 0.25em 0.75em;
-    color: var(--secondary);
-    font-size: medium;
-}
-
-.post-tags a:hover {
-    text-decoration: underline;
 }
 
 .paginav a:hover {
@@ -416,7 +402,6 @@
     text-decoration: underline;
 }
 
-.post-tags a:hover,
 .paginav a:hover {
     background: var(--border);
 }

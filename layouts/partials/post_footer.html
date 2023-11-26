@@ -1,8 +1,12 @@
 <footer class="post-footer">
   {{- with ($.GetTerms "tags") }}
-  <ul class="post-tags">
+  <ul class="terms">
     {{- range . }}
-    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    <li>
+      <a href="{{ .Permalink }}" class="term">
+        <span class="link-title">{{ .LinkTitle }}</span>
+      </a>
+    </li>
     {{- end }}
   </ul>
   {{- end }}

@@ -37,7 +37,7 @@
 
 @media (prefers-reduced-motion) {
     /* terms; profile-mode; post-single; page-list-entry; page-list-entry; search; search */
-    .terms-tags a:active,
+    a:active,
     .button:active,
     .share-buttons svg:active,
     .page-list-entry:active,
