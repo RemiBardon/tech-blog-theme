@@ -56,3 +56,12 @@
   translation: >
     This page is private.
     There is no point in sharing a link to it as most people don’t have access to it.
+
+- id: created_with
+  translation: Created with
+
+- id: served_by
+  translation: Served by
+
+- id: hosted_by
+  translation: Hosted by
