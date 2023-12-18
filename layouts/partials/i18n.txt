@@ -1,0 +1,9 @@
+{{ $res := $ }}
+
+{{ with i18n $ }}
+  {{ $res = . }}
+{{ else }}
+  {{ errorf "i18n key '%s' not defined for '%s'" $ site.Language.LanguageCode }}
+{{ end }}
+
+{{ return $res }}
