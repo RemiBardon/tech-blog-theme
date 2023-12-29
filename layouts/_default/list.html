@@ -15,7 +15,7 @@
 {{- $pages := (partial "profile_filter.html" $pages) }}
 {{- $paginator := .Paginate $pages }}
 <ol class="page-list">
-  {{- range $paginator.Pages }}
+  {{- range $paginator.Pages.ByPublishDate.Reverse }}
   <li>
     {{ partial "page_list_entry.html" . }}
   </li>
