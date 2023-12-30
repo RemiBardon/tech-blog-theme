@@ -21,6 +21,11 @@
     text-decoration: underline;
 }
 
+.page-list-entry.foreign .entry-header,
+.page-list-entry.foreign .entry-content {
+    font-style: italic;
+}
+
 .entry-header h2 {
     font-size: 1.25em;
     line-height: 1.3;

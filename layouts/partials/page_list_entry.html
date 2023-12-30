@@ -1,9 +1,11 @@
-<article class="page-list-entry">
+{{- $isForeign := ne .Language site.Language }}
+<article class="page-list-entry{{ if $isForeign }} foreign{{ end }}">
   {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
   <header class="entry-header">
     <h2>
       {{- .Title | markdownify }}
+      {{ if $isForeign }}({{ .Language.LanguageName }}){{ end }}
       {{- if .Draft }}<sup class="entry-isdraft">&nbsp;&nbsp;[draft]</sup>{{- end }}
     </h2>
   </header>
