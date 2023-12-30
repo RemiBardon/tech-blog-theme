@@ -28,6 +28,6 @@
 
 {{- with $parts -}}
 <figcaption>
-    {{ delimit . "" }}
+    {{ delimit . "" | safeHTML }}
 </figcaption>
 {{- end }}
