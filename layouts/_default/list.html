@@ -10,9 +10,10 @@
 
 {{ partial "post_content.html" (dict "ctx" .) }}
 
-{{- $pages := $.Pages }}
-{{- $pages = where $pages ".Params.hidden" "!=" true }}
-{{- $pages := (partial "profile_filter.html" $pages) }}
+{{- $pages := slice }}
+{{- range .Page.AllTranslations }}
+  {{- $pages = $pages | append (partial "profile_filter.html" .Pages) }}
+{{- end }}
 {{- $paginator := .Paginate $pages }}
 <ol class="page-list">
   {{- range $paginator.Pages.ByPublishDate.Reverse }}
