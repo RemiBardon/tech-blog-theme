@@ -17,7 +17,7 @@
     {{ end }}
 
     {{ $returnValue = $filteredMap }}
-  {{ else if in (slice "page.WeightedPages") (printf "%T" $) }}
+  {{ else if in (slice "page.WeightedPages"  "navigation.Menu") (printf "%T" $) }}
     {{ $filteredSlice := slice }}
 
     {{ range $value := $ }}
@@ -56,7 +56,7 @@
     {{ end }}
 
     {{ $returnValue = $filteredSlice }}
-  {{ else if in (slice "page.OrderedTaxonomyEntry") (printf "%T" $) }}
+  {{ else if in (slice "page.OrderedTaxonomyEntry" "*navigation.MenuEntry") (printf "%T" $) }}
     {{ $filteredSlice := slice }}
 
     {{ range $value := $.Pages }}
