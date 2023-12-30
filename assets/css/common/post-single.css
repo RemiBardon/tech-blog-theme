@@ -42,7 +42,7 @@
 .list.dot-separated > li:not([hidden]) {
     display: inline;
 }
-.list.dot-separated > *:not(:first-child)::before {
+.list.dot-separated > li:not([hidden]) ~ li::before {
     content: " · ";
 }
 

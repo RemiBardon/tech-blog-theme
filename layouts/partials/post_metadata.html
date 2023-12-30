@@ -43,18 +43,24 @@
   {{- end }}
 {{- end }}
 
-{{- /* Reading time */}}
-{{- if (.Param "ShowReadingTime") }}
-  {{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
-  {{- $value := (printf "PT%dM" .ReadingTime)}}
-  {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"timeRequired\" datetime=\"%s\">%s</time></li>" $value $text)) }}
-{{- end }}
+{{- if .IsPage }}
+  {{- /* Reading time */}}
+  {{- if (.Param "ShowReadingTime") }}
+    {{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
+    {{- $value := (printf "PT%dM" .ReadingTime)}}
+    {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"timeRequired\" datetime=\"%s\">%s</time></li>" $value $text)) }}
+  {{- end }}
 
-{{- /* Word count */}}
-{{- if (.Param "ShowWordCount") }}
-  {{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
-  {{- $value := .WordCount }}
-  {{- $scratch.Add "meta" (slice (printf "<li><span itemprop=\"wordCount\" content=\"%d\">%s</span></li>" $value $text)) }}
+  {{- /* Word count */}}
+  {{- if (.Param "ShowWordCount") }}
+    {{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
+    {{- $value := .WordCount }}
+    {{- $scratch.Add "meta" (slice (printf "<li><span itemprop=\"wordCount\" content=\"%d\">%s</span></li>" $value $text)) }}
+  {{- end }}
+{{- else }}
+  {{- /* Pages count */}}
+  {{- $text := (i18n "post_count" .Pages.Len | default (printf "%d&nbsp;page(s)" .Pages.Len)) }}
+  {{- $scratch.Add "meta" (slice (printf "<li>%s</li>" $text)) }}
 {{- end }}
 
 {{- /* Author */}}
