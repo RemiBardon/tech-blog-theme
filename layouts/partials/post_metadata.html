@@ -3,26 +3,26 @@
 {{- $scratch := newScratch }}
 {{- $dateFormat := (.Param "DateFormat") | default ":date_long" }}
 {{- $timeFormat := (.Param "TimeFormat") | default ":time_short" }}
-{{- $dateIsStartOfDay := eq (.Date | time.Format "15:04") "00:00" }}
+{{- $publishDateIsStartOfDay := eq (.PublishDate | time.Format "15:04") "00:00" }}
 
 {{- /* Publish date */}}
-{{- if not .Date.IsZero }}
-  {{- $date := (.Date | time.Format $dateFormat) }}
+{{- if not .PublishDate.IsZero }}
+  {{- $date := (.PublishDate | time.Format $dateFormat) }}
   {{- $text := $date }}
   {{- /* Add time component if not 00:00 */}}
-  {{- if not $dateIsStartOfDay }}
-    {{- $time := (.Date | time.Format $timeFormat) }}
+  {{- if not $publishDateIsStartOfDay }}
+    {{- $time := (.PublishDate | time.Format $timeFormat) }}
     {{- $text = (i18n "datetime" (dict "date" $date "time" $time) | default (printf "%s at %s" $date $time)) }}
   {{- end }}
   {{- /* Value comes from <https://pkg.go.dev/time#pkg-constants> */}}
-  {{- $value := (.Date | time.Format "2006-01-02T15:04:05Z07:00")}}
+  {{- $value := (.PublishDate | time.Format "2006-01-02T15:04:05Z07:00") }}
   {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"datePublished\" datetime=\"%s\">%s</time></li>" $value $text)) }}
 {{- end }}
 
 {{- /* Last modification */}}
 {{- if (.Param "ShowLastMod") }}
-  {{- $lastmodIsStartOfDay := eq (.Lastmod | time.Format "15:04") "00:00" }}
-  {{- if (or (and $dateIsStartOfDay (gt .Lastmod (.Date.AddDate 0 0 1))) (and (not $dateIsStartOfDay) (gt .Lastmod .Date))) }}
+  {{- $lastmodIsStartOfDay := partialCached "is-start-of-day" .Lastmod .Lastmod }}
+  {{- if (or (and $publishDateIsStartOfDay (gt .Lastmod (.PublishDate.AddDate 0 0 1))) (and (not $publishDateIsStartOfDay) (gt .Lastmod .PublishDate))) }}
     {{- $date := (.Lastmod | time.Format $dateFormat) }}
     {{- $datetime := $date }}
     {{- /* Add time component if not 00:00 */}}
@@ -81,3 +81,7 @@
 {{- end }}
 
 {{- end }}{{/* End context */ -}}
+
+{{ define "partials/is-start-of-day" }}
+{{- return eq (. | time.Format "15:04") "00:00" }}
+{{ end }}

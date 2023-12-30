@@ -9,16 +9,8 @@
   {{- $ancestors = $ancestors | append (site.GetPage $taxonomy) }}
   {{- $ancestors = $ancestors | append . }}
 {{- else }}
-  {{- $taxonomy = "categories" }}
-  {{- with .GetTerms $taxonomy }}
-    {{- /* If the page is not in a series, link to its category */}}
-    {{- $ancestors = $ancestors | append (site.GetPage "/") }}
-    {{- $ancestors = $ancestors | append (site.GetPage $taxonomy) }}
-    {{- $ancestors = $ancestors | append . }}
-  {{- else }}
-    {{- /* Otherwise, show regular breadcrimbs */}}
-    {{- $ancestors = $ancestors | append .Ancestors.Reverse }}
-  {{- end }}
+  {{- /* Otherwise, show regular breadcrimbs */}}
+  {{- $ancestors = $ancestors | append .Ancestors.Reverse }}
 {{- end }}
 
 <ol>

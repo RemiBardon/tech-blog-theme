@@ -1,16 +1,16 @@
 <ul class="category-grid">
-  {{ range (sort (partial "profile_filter.html" .Site.Taxonomies.categories) ".Page.Weight") }}
-  <li class="category-card" {{ (partialCached "category-card-style.html" .Page .Page) | safeHTMLAttr }}>
-    <img src="{{ partialCached "category-icon-link.html" .Page .Page }}" width="48" height="48" />
+  {{- range (partial "profile_filter.html" site.Menus.main) }}
+  <li class="category-card" {{ (partialCached "category-card-style.html" . .) | safeHTMLAttr }}>
+    <img src="{{ partialCached "category-icon-link.html" . . }}" width="48" height="48" />
     <div>
       <span class="title">{{ .Page.Title | markdownify }}</span>
-      {{- $postCount := (i18n "post_count" .Count) | default (printf "%d post(s)" .Count) }}
-      {{- $lastPostDate := time.Format ":date_medium" ((index .Pages.ByDate.Reverse 0).Date) }}
+      {{- $postCount := (i18n "post_count" .Page.Pages.Len) | default (printf "%d post(s)" .Page.Pages.Len) }}
+      {{- $lastPostDate := time.Format ":date_medium" ((index .Page.Pages.ByDate.Reverse 0).Date) }}
       <div class="subtitle">{{ printf "%s · %s" $postCount $lastPostDate }}</div>
     </div>
     <a href="{{ .Page.Permalink }}" class="entry-link"></a>
   </li>
-  {{ end }}
+  {{- end }}
 </ul>
 
 {{ define "partials/category-card-style.html" }}
@@ -19,7 +19,7 @@
 {{ with .Params.colorHSL }}
 {{ $style = (printf "style=\"border: 1.5px solid hsl(%s); background-color: hsla(%s / .25);\"" . .) }}
 {{ else }}
-{{ errorf "Category '%s' is missing param 'colorHSL'" .Title }}
+{{ errorf "Menu item '%s' is missing param 'colorHSL'" .Name }}
 {{ end }}
 
 {{/* `return` statement can't go in the `with` as its scope is the function body's */}}
@@ -30,9 +30,9 @@
 {{ $icon := "" }}
 
 {{ with .Params.icon }}
-{{ $icon = (printf "%s/%s" $.Site.BaseURL .) }}
+{{ $icon = (printf "%s/%s" site.BaseURL .) }}
 {{ else }}
-{{ errorf "Category '%s' is missing param 'icon'" .Title }}
+{{ errorf "Menu item '%s' is missing param 'icon'" .Name }}
 {{ end }}
 
 {{/* `return` statement can't go in the `with` as its scope is the function body's */}}
