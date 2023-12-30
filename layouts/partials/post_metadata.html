@@ -59,7 +59,8 @@
   {{- end }}
 {{- else }}
   {{- /* Pages count */}}
-  {{- $text := (i18n "post_count" .Pages.Len | default (printf "%d&nbsp;page(s)" .Pages.Len)) }}
+  {{- $pageCount := len (partial "profile_filter.html" .RegularPagesRecursive) }}
+  {{- $text := (i18n "post_count" $pageCount | default (printf "%d&nbsp;page(s)" $pageCount)) }}
   {{- $scratch.Add "meta" (slice (printf "<li>%s</li>" $text)) }}
 {{- end }}
 

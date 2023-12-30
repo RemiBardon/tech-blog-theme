@@ -4,7 +4,7 @@
     <img src="{{ partialCached "category-icon-link.html" . . }}" width="48" height="48" />
     <div>
       <span class="title">{{ .Page.Title | markdownify }}</span>
-      {{- $postCount := (i18n "post_count" .Page.Pages.Len) | default (printf "%d post(s)" .Page.Pages.Len) }}
+      {{- $postCount := (i18n "post_count" (partial "profile_filter.html" .Page.RegularPagesRecursive | len)) | default (printf "%d post(s)" .Page.Pages.Len) }}
       {{- $lastPostDate := time.Format ":date_medium" ((index .Page.Pages.ByDate.Reverse 0).Date) }}
       <div class="subtitle">{{ printf "%s · %s" $postCount $lastPostDate }}</div>
     </div>
