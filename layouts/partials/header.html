@@ -41,10 +41,10 @@
 
 <header class="header">
     <nav class="nav">
-        <div class="logo">
+        <div class="leading">
             {{- $label_text := (site.Params.label.text | default site.Title) }}
             {{- if site.Title }}
-            <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+            <a class="brand" href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
                 {{- if site.Params.label.icon }}
                 {{- $img := resources.Get site.Params.label.icon }}
                 {{- if $img }}
@@ -60,8 +60,12 @@
                             {{- $img = $img.Resize "x30" }}
                         {{- end }}
                     {{- end }}
-                    <img src="{{ $img.Permalink }}" alt="logo" aria-label="logo"
-                        height="{{- site.Params.label.iconHeight | default "30" -}}">
+                    <img
+                        src="{{ $img.Permalink }}"
+                        class="logo"
+                        alt="logo" aria-label="logo"
+                        height="{{- site.Params.label.iconHeight | default "30" -}}"
+                    >
                 {{- else }}
                 <img src="{{- site.Params.label.icon | absURL -}}" alt="logo" aria-label="logo"
                     height="{{- site.Params.label.iconHeight | default "30" -}}">
@@ -93,30 +97,29 @@
             </button>
             {{- end }}
 
-            {{- $lang := .Lang}}
-            {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
-            {{- with .Page.AllTranslations }}{{ if gt (. | len) 1 }}
+            {{- $lang := .Lang }}
+            {{- with $translations := .Page.Translations }}
             <ul class="lang-switch">
-                {{- if $separator }}<li>|</li>{{ end }}
-                {{- range . -}}
-                {{- if ne $lang .Lang }}
+                {{- range $translations }}
                 <li>
-                    <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
-                        aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
+                    <a
+                        href="{{- .Permalink -}}"
+                        title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
+                        aria-label="{{ .Language.LanguageName | default (.Lang | title) }}"
+                    >
                         {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
-                        {{- .Language.LanguageName | emojify -}}
+                            {{- .Language.LanguageName | emojify -}}
                         {{- else }}
-                        {{- .Lang | title -}}
-                        {{- end -}}
+                            {{- .Lang | title -}}
+                        {{- end }}
                     </a>
                 </li>
-                {{- end -}}
-                {{- end}}
+                {{- end }}
             </ul>
-            {{- end}}{{ end }}
+            {{- end }}
         </div>
         {{- $currentPage := . }}
-        <ul id="menu">
+        <ul class="trailing">
             {{- range site.Menus.header }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}

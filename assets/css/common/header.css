@@ -13,31 +13,27 @@
     gap: var(--gap);
 }
 
-.logo,
-#menu {
+.leading,
+.trailing {
     display: flex;
     flex-wrap: inherit;
     margin: auto 0;
 }
 
-.logo {
+.leading {
     gap: calc(var(--gap) / 2);
-    align-items: baseline;
+    align-items: center;
 }
 
-.logo a {
+.leading .brand {
     font-size: 1.5em;
     font-weight: 700;
 }
 
-/* TODO: Cleanup */
-.logo a img {
-    display: inline;
-    vertical-align: middle;
-    pointer-events: none;
-    transform: translate(0, -10%);
-    border-radius: 6px;
-    margin-inline-end: 8px;
+#theme-toggle {
+    width: 1em;
+    height: 1em;
+    font-weight: 700;
 }
 
 body.dark #moon {
@@ -48,7 +44,7 @@ body:not(.dark) #sun {
     display: none;
 }
 
-#menu {
+.trailing {
     list-style: none;
     word-break: keep-all;
     overflow-x: auto;
@@ -57,16 +53,8 @@ body:not(.dark) #sun {
     row-gap: calc(var(--gap) / 2);
 }
 
-#menu .active {
+.trailing .active {
     text-decoration: underline;
-}
-
-/* Lang switch not cleaned up because I didn't test it */
-
-.lang-switch li,
-.lang-switch ul {
-    display: inline-flex;
-    margin: auto 4px;
 }
 
 .lang-switch {
@@ -74,8 +62,10 @@ body:not(.dark) #sun {
     flex-wrap: inherit;
 }
 
-.lang-switch a {
-    margin: auto 3px;
-    font-size: 16px;
-    font-weight: 500;
+.lang-switch li {
+    list-style: none;
+}
+.lang-switch li:not([hidden]) ~ li::before {
+    content: "|";
+    margin: auto 0.25em;
 }
