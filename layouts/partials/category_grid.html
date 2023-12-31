@@ -11,7 +11,7 @@
     <div>
       <span class="title">{{ .Page.Title | markdownify }}</span>
       {{- $postCountText := (i18n "post_count" $postCount) | default (printf "%d post(s)" $postCount) }}
-      {{- $lastPostDate := time.Format ":date_medium" (index $allPages.ByPublishDate.Reverse 0).PublishDate }}
+      {{- $lastPostDate := time.Format ":date_medium" (index (sort $allPages "PublishDate" "desc") 0).PublishDate }}
       <div class="subtitle">{{ printf "%s · %s" $postCountText $lastPostDate }}</div>
     </div>
     <a href="{{ .Page.Permalink }}" class="entry-link"></a>
