@@ -59,8 +59,12 @@
   {{- end }}
 {{- else }}
   {{- /* Pages count */}}
-  {{- $pageCount := len (partial "profile_filter.html" .RegularPagesRecursive) }}
-  {{- $text := (i18n "post_count" $pageCount | default (printf "%d&nbsp;page(s)" $pageCount)) }}
+  {{- $allPages := slice }}
+  {{- range .Page.AllTranslations }}
+    {{- $allPages = $allPages | append (partial "profile_filter.html" .RegularPagesRecursive) }}
+  {{- end }}
+  {{- $pageCount := len $allPages }}
+  {{- $text := (i18n "post_count" $pageCount) | default (printf "%d&nbsp;post(s)" $pageCount) }}
   {{- $scratch.Add "meta" (slice (printf "<li>%s</li>" $text)) }}
 {{- end }}
 
