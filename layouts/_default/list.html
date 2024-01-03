@@ -11,8 +11,18 @@
 {{ partial "post_content.html" (dict "ctx" .) }}
 
 {{- $pages := slice }}
-{{- range .Page.AllTranslations }}
-  {{- $pages = $pages | append (partial "profile_filter.html" .Pages) }}
+{{- $translationKeys := slice }}
+{{- /* `.AllTranslations` gives translations sorted by weight, we want the current language first */}}
+{{- $allTranslations := slice .Page }}
+{{- $allTranslations = $allTranslations | append .Page.Translations }}
+{{- range $allTranslations }}
+  {{- $newPages := partial "profile_filter.html" .Pages }}
+  {{- range $page := $newPages }}
+    {{- if not (in $translationKeys $page.TranslationKey) }}
+      {{- $pages = $pages | append $page }}
+      {{- $translationKeys = $translationKeys | append $page.TranslationKey }}
+    {{- end }}
+  {{- end }}
 {{- end }}
 {{- $paginator := .Paginate $pages }}
 <ol class="page-list">
