@@ -44,14 +44,19 @@ body {
   border-radius: .25rem;
 }
 
-.callout:not([disabled]) summary {
+.callout p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.callout:not([disabled]) > summary {
   cursor: pointer;
 }
-.callout summary > * {
+.callout > summary > * {
   display: inline;
 }
 
-.callout summary {
+.callout > summary {
   list-style: none;
   padding: 0;
   display: flex;
@@ -61,27 +66,27 @@ body {
   align-items: flex-start;
 }
 
-.callout[open] summary:not(:last-child) {
+.callout[open] > summary:not(:last-child) {
   margin-bottom: 12px;
 }
-.callout summary {
+.callout > summary {
   transition: margin-bottom 100ms ease-in-out;
 }
 
-.callout[open] .chevron {
+.callout[open] > summary .chevron {
   transform: rotate(90deg);
 }
-.callout .chevron {
+.callout > summary .chevron {
   transition: transform 100ms ease-in-out;
 }
 
-.callout[disabled] summary {
+.callout[disabled] > summary {
   pointer-events: none;
 }
-.callout[disabled] summary a {
+.callout[disabled] > summary a {
   pointer-events: initial;
 }
-.callout[disabled] .chevron {
+.callout[disabled] > summary .chevron {
   display: none;
 }
 
