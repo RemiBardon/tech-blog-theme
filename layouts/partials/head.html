@@ -16,7 +16,7 @@
         {{- $title = printf "%s | %s" .Title site.Title }}
     {{- end }}
 {{- end }}
-{{ with $title }}<title>{{ . | markdownify | plainify }}</title>{{ end }}
+{{ with $title }}<title>{{ . | markdownify | plainify | safeHTML }}</title>{{ end }}
 {{- /* Meta */}}
 {{- if .IsHome }}
 {{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
@@ -165,7 +165,7 @@
 {{- /* Misc */}}
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
 {{- template "_internal/google_analytics.html" . }}
-{{- template "_internal/opengraph.html" . }}
+{{- template "partials/templates/opengraph.html" . }}
 {{- template "partials/templates/twitter_cards.html" . }}
 {{- template "partials/templates/schema_json.html" . }}
 {{- end -}}
