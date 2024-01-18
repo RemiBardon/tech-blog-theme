@@ -444,20 +444,29 @@
 
 a.heading-link {
     text-decoration: none;
+    line-height: 1;
 }
 
 a.heading-link svg {
     /* display: inline-block; */
     color: var(--secondary);
+    /* `margin-inline-start` is here to ensure that the heading is still hovered
+       when switching from the heading text to the anchor */
     margin-inline-start: 8px;
 }
 
 .heading-link .anchor {
-    display: none;
+    vertical-align: middle;
 }
 
-.heading-link:hover .anchor {
-    display: inline-block;
+@media (pointer: fine) {
+    .heading-link .anchor {
+        display: none;
+    }
+
+    *:hover > .heading-link .anchor {
+        display: inline-block;
+    }
 }
 
 .post-content :not(table) ::-webkit-scrollbar-thumb {
