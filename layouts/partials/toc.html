@@ -1,3 +1,3 @@
-{{ if (.Param "ShowToc") -}}
-  {{ partial "_toc.html" . }}
+{{- if (.page.Param "ShowToc") }}
+  {{- partial "_toc.html" . }}
 {{- end -}}

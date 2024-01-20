@@ -1,14 +1,21 @@
-{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content }}
+{{- $page := "" }}
+{{- with .page }}
+  {{- $page = . }}
+{{- else }}
+  {{- errorf "Dictionary key 'page' not passed to partial '_toc.html'" }}
+{{- end}}
+
+{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" (.content | default $page.Content) }}
 {{- $has_headers := ge (len $headers) 1 }}
 {{- if $has_headers }}
 <nav class="toc">
-  <details{{ if (.Param "TocOpen" ) }}open{{ end }}>
+  <details{{ if ($page.Param "TocOpen" ) }}open{{ end }}>
     <summary accesskey="c" title="(Alt + C)">
       <span class="details">{{ i18n "toc" | default "Table of Contents" }}</span>
     </summary>
     <div class="inner">
-      {{- if (.Param "UseHugoToc") }}
-        {{- .TableOfContents }}
+      {{- if ($page.Param "UseHugoToc") }}
+        {{- $page.TableOfContents }}
       {{- else }}
         {{- $largest := 6 }}
         {{- range $headers }}

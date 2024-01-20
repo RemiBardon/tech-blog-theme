@@ -11,7 +11,7 @@
   {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
 
-  {{ partial "toc.html" . }}
+  {{ partial "toc.html" (dict "page" .) }}
   {{ partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
   {{ partial "post_footer.html" . }}
   {{ partial "comments.html" . }}
