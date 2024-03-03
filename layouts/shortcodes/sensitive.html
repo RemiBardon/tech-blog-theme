@@ -8,8 +8,6 @@
 {{- $public := "" }}
 {{- with .Get "public" }}
   {{- $public = . }}
-{{- else }}
-  {{- errorf "'public' param required: %s" $.Position }}
 {{- end }}
 
 {{- if (in ((.Page.Param "read_allowed") | default (slice "_default")) "_default") }}
