@@ -1,0 +1,3 @@
+{{- if (in ((.Page.Param "read_allowed") | default (slice "_default")) "_default") }}
+{{ .Inner }}
+{{- end }}
