@@ -1,12 +1,8 @@
 {{ with .ctx }}{{/* Apply proper context from dict */ -}}
 
-{{ if .Content -}}
+{{ with $content := .Content -}}
 <section class="post-content"{{ with $.itemprop }} itemprop="{{ . }}"{{ end }}>
-  {{- if (.Param "disableAnchoredHeadings") }}
-    {{ .Content }}
-  {{- else }}
-    {{ partial "anchored_headings.html" .Content }}
-  {{- end }}
+  {{ $content }}
 </section>
 {{- end }}
 

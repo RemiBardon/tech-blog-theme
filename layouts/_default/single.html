@@ -12,7 +12,11 @@
   {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
 
   {{ partial "toc.html" (dict "page" .) }}
-  {{ partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
+  {{- $content := partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
+  {{ partial "anchored_headings.html" (dict
+  "content" $content
+  "disableAnchoredHeadings" (.Param "disableAnchoredHeadings")
+  ) }}
   {{ partial "post_footer.html" . }}
   {{ partial "comments.html" . }}
 </article>
