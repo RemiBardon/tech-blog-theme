@@ -1,3 +1,8 @@
-{{- if not (in ((.Page.Param "read_allowed") | default (slice "_default")) "_default") }}
-{{ .Inner }}
-{{- end }}
+{{- with $readAllowed := (.Get "private_allowed") | default (.Page.Param "private_allowed") }}
+  {{- $currentProfiles := (site.Param "currentProfiles" | default slice) | append "_default" }}
+  {{- if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+    {{- partial "minify.html" $.Inner }}
+  {{- end }}
+{{- else }}
+  {{- errorf "'private_allowed' param required in shortcode, page param (cascade allowed) or site param: %s" $.Position }}
+{{- end -}}
