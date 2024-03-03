@@ -1,0 +1,19 @@
+{{- $private := "" }}
+{{- with .Get "private" }}
+  {{- $private = . }}
+{{- else }}
+  {{- errorf "'private' param required: %s" $.Position }}
+{{- end }}
+
+{{- $public := "" }}
+{{- with .Get "public" }}
+  {{- $public = . }}
+{{- else }}
+  {{- errorf "'public' param required: %s" $.Position }}
+{{- end }}
+
+{{- if (in ((.Page.Param "read_allowed") | default (slice "_default")) "_default") }}
+  {{- $public | safeHTML }}
+{{- else }}
+  {{- $private | safeHTML }}
+{{- end -}}
