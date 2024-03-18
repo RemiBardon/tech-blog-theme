@@ -10,9 +10,7 @@
 {{- end }}
 
 {{- with site.GetPage $path }}
-  {{- if gt ((partialCached "pages" . .) | len) 0 }}
-    {{- partial "page_list_entry.html" . }}
-  {{- end }}
+  {{- partial "page_list_entry.html" . }}
 {{- else }}
   {{- errorf "Page '%s' does not exist: %s" $path $.Position }}
 {{- end }}
