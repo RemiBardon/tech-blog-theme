@@ -47,13 +47,13 @@
   {{- /* Reading time */}}
   {{- if (.Param "ShowReadingTime") }}
     {{- $text := (i18n "read_time" .ReadingTime | default (printf "%d&nbsp;min" .ReadingTime)) }}
-    {{- $value := (printf "PT%dM" .ReadingTime)}}
+    {{- $value := (printf "PT%dM" .ReadingTime) }}
     {{- $scratch.Add "meta" (slice (printf "<li><time itemprop=\"timeRequired\" datetime=\"%s\">%s</time></li>" $value $text)) }}
   {{- end }}
 
   {{- /* Word count */}}
-  {{- if (.Param "ShowWordCount") }}
-    {{- $text := (i18n "words" .WordCount | default (printf "%d&nbsp;words" .WordCount)) }}
+  {{- if or (.Param "ShowWordCount") (not (hugo.IsProduction | or (eq site.Params.env "production"))) }}
+    {{- $text := partialCached "i18n.txt" (dict "key" "words" "value" .WordCount) .WordCount site.Language.LanguageCode }}
     {{- $value := .WordCount }}
     {{- $scratch.Add "meta" (slice (printf "<li><span itemprop=\"wordCount\" content=\"%d\">%s</span></li>" $value $text)) }}
   {{- end }}
@@ -77,6 +77,7 @@
 
   {{- $scratch.Add "meta" (slice (printf "<li%s>%s</li>" $display .)) }}
 {{- end }}
+
 {{- with ($scratch.Get "meta") }}
 <ul class="post-metadata list dot-separated">
   {{ range . -}}
