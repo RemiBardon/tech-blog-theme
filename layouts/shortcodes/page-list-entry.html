@@ -1,0 +1,18 @@
+{{- if in (printf "%" .Params) "TODO" }}
+  {{- warnf "Shortcode has TODO: %s" .Position }}
+{{- end }}
+
+{{- $path := "" }}
+{{- with .Get 0 }}
+  {{- $path = . }}
+{{- else }}
+  {{- errorf "At least one param should be provided (a page path): %s" $.Position }}
+{{- end }}
+
+{{- with site.GetPage $path }}
+  {{- if gt ((partialCached "pages" . .) | len) 0 }}
+    {{- partial "page_list_entry.html" . }}
+  {{- end }}
+{{- else }}
+  {{- errorf "Page '%s' does not exist: %s" $path $.Position }}
+{{- end }}

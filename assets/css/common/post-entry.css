@@ -27,8 +27,8 @@
 }
 
 .entry-header h2 {
-    font-size: 1.25em;
-    line-height: 1.3;
+    font-size: 1.25em !important;
+    line-height: 1.3 !important;
 }
 
 .entry-content {
