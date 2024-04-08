@@ -83,6 +83,10 @@ pre:hover .copy-code {
     gap: var(--content-gap) !important;
 }
 
+.page-type-species .page-list {
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
+
 .page-list li {
     margin: 0 !important;
 }
