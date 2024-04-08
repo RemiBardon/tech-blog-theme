@@ -8,8 +8,9 @@
 
     {{ range $key, $value := $ }}
       {{/* Read params inside .Page */}}
-      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
-      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+      {{ $readAllowed := .Page.Params.read_allowed | default (slice "_default") }}
+      {{ $readDenied := .Page.Params.read_denied | default slice }}
+      {{ if (partial "_access_allowed" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed "readDenied" $readDenied)) }}
         {{/* Filter value */}}
         {{ $value := (partial "profile_filter.html" $value) }}
         {{ $filteredMap = $filteredMap | merge (dict $key $value) }}
@@ -22,8 +23,9 @@
 
     {{ range $value := $ }}
       {{/* Read params inside .Page */}}
-      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
-      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+      {{ $readAllowed := .Page.Params.read_allowed | default (slice "_default") }}
+      {{ $readDenied := .Page.Params.read_denied | default slice }}
+      {{ if (partial "_access_allowed" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed "readDenied" $readDenied)) }}
         {{ $filteredSlice = $filteredSlice | append $value }}
       {{ end }}
     {{ end }}
@@ -33,8 +35,9 @@
     {{ $filteredSlice := slice }}
 
     {{ range $value := $ }}
-      {{ $readAllowed := (.Params.read_allowed | default (slice "_default")) }}
-      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+      {{ $readAllowed := .Params.read_allowed | default (slice "_default") }}
+      {{ $readDenied := .Params.read_denied | default slice }}
+      {{ if (partial "_access_allowed" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed "readDenied" $readDenied)) }}
         {{ $filteredSlice = $filteredSlice | append $value }}
       {{ end }}
     {{ end }}
@@ -45,8 +48,9 @@
 
     {{ range $value := $ }}
       {{/* Read params inside .Page */}}
-      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
-      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+      {{ $readAllowed := .Page.Params.read_allowed | default (slice "_default") }}
+      {{ $readDenied := .Page.Params.read_denied | default slice }}
+      {{ if (partial "_access_allowed" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed "readDenied" $readDenied)) }}
         {{/* Filter value */}}
         {{ $value := (partial "profile_filter.html" $value) }}
         {{ if gt $value.Count 0 }}
@@ -61,8 +65,9 @@
 
     {{ range $value := $.Pages }}
       {{/* Read params inside .Page */}}
-      {{ $readAllowed := (.Page.Params.read_allowed | default (slice "_default")) }}
-      {{ if (partial "_access_allowed.html" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed)) }}
+      {{ $readAllowed := .Page.Params.read_allowed | default (slice "_default") }}
+      {{ $readDenied := .Page.Params.read_denied | default slice }}
+      {{ if (partial "_access_allowed" (dict "currentProfiles" $currentProfiles "readAllowed" $readAllowed "readDenied" $readDenied)) }}
         {{/* Filter value */}}
         {{ $value := (partial "profile_filter.html" $.Pages) }}
         {{ $filteredSlice = $filteredSlice | append $value }}
@@ -78,7 +83,7 @@
 
 {{ return $returnValue }}
 
-{{ define "partials/_access_allowed.html" }}
-{{ $res := (in .currentProfiles "*") | or (gt (len (intersect .currentProfiles .readAllowed)) 0) }}
+{{ define "partials/_access_allowed" }}
+{{ $res := (in .currentProfiles "*") | or (gt (len (intersect (.currentProfiles | complement .readDenied) .readAllowed)) 0) }}
 {{ return $res }}
 {{ end }}
