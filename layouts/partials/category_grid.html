@@ -37,7 +37,7 @@
 {{ $icon := "" }}
 
 {{ with .Params.icon }}
-{{ $icon = (printf "%s/%s" site.BaseURL .) }}
+{{ $icon = (printf "%s/%s" (site.BaseURL | strings.TrimSuffix "/") .) }}
 {{ else }}
 {{ errorf "Menu item '%s' is missing param 'icon'" .Name }}
 {{ end }}
