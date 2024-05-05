@@ -10,7 +10,7 @@
 
 <ul class="terms">
   {{- $type := .Type }}
-  {{- range $key, $value := (partial "profile_filter.html" .Data.Terms.Alphabetical) }}
+  {{- range $key, $value := .Data.Terms.Alphabetical }}
     {{- $count := .Count }}
     {{- with site.GetPage (printf "/%s/%s" $type .Name) }}
   <li>

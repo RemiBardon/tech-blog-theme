@@ -4,7 +4,7 @@
 {{- $allTranslations := slice .Page }}
 {{- $allTranslations = $allTranslations | append .Page.Translations }}
 {{- range $allTranslations }}
-  {{- $newPages := partial "profile_filter.html" .Pages }}
+  {{- $newPages := .Pages }}
   {{- range $page := $newPages }}
     {{- if not (in $translationKeys $page.TranslationKey) }}
       {{- $pages = $pages | append $page }}

@@ -61,7 +61,7 @@
   {{- /* Pages count */}}
   {{- $allPages := slice }}
   {{- range .Page.AllTranslations }}
-    {{- $allPages = $allPages | append (partial "profile_filter.html" .RegularPagesRecursive) }}
+    {{- $allPages = $allPages | append .RegularPagesRecursive }}
   {{- end }}
   {{- $pageCount := len $allPages }}
   {{- $text := (i18n "post_count" $pageCount) | default (printf "%d&nbsp;post(s)" $pageCount) }}

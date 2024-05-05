@@ -1,8 +1,8 @@
 <ul class="category-grid">
-  {{- range (partial "profile_filter.html" site.Menus.main) }}
+  {{- range site.Menus.main }}
     {{- $allPages := slice }}
     {{- range .Page.AllTranslations }}
-      {{- $allPages = $allPages | append (partial "profile_filter.html" .RegularPagesRecursive) }}
+      {{- $allPages = $allPages | append .RegularPagesRecursive }}
     {{- end }}
     {{- $postCount := len $allPages }}
     {{- if gt $postCount 0 }}
